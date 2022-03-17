@@ -38,4 +38,7 @@ if __name__ == '__main__':
         exit(1)
     else:
         result = boolean_search(search_string, index)
-        print(f'Following documents were found: {", ".join(result)}')
+        if result:
+            print(f'Following documents were found: {", ".join(result)}')
+        else:
+            print('Nothing found.')
