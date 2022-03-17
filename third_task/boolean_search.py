@@ -7,7 +7,7 @@ def parse_index(filepath, encoding):
     inverted_index = {}
     with open(filepath, encoding=encoding) as index_file:
         for line in index_file:
-            term, *documents = line.split(' ')
+            term, *documents = line.rstrip('\n').split(' ')
             documents = set(documents)
             inverted_index[term] = documents
     return inverted_index
