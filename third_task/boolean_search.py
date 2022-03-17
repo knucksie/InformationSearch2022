@@ -20,7 +20,6 @@ def boolean_search(search_request: str, inverted_index):
     search_result = inverted_index[start_token]
     if len(tokens) == 1:
         return search_result
-    print(tokens)
     for i in range(1, len(tokens[1::]) - 1):
         if tokens[i] == DISJUNCTION_SIGN:
             search_result = search_result | inverted_index[tokens[i + 1]]
