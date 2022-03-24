@@ -102,15 +102,14 @@ def compute_tf_idf(tf_dict, idf_dict):
 
 # compute tf for terms
 term_tf = compute_tf(corpus, term_bag)
-print("Computed tf")
 
 # compute idf for terms
 term_idf = compute_idf(corpus, term_bag)
-print("Computed idf")
+
 
 # compute tf-idf for terms
 term_tf_idf = compute_tf_idf(term_tf, term_idf)
-print(term_tf_idf)
+
 
 # write term results to terms files
 for doc in term_tf_idf.keys():
