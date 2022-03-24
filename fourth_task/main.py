@@ -51,6 +51,7 @@ with open('../first_task/index.txt') as pages:
 
 morph = MorphAnalyzer()
 
+# generating corpus with lemmas instead of terms
 lemmatized_corpus = {}
 for doc in corpus.keys():
     tokens = corpus[doc]
@@ -65,6 +66,7 @@ for tokens in corpus.values():
 lemma_bag = {morph.normal_forms(term)[0] for term in term_bag}
 
 
+# tf computing function
 def compute_tf(corpus, bag):
     tf_dict = {}
     for word in bag:
@@ -78,6 +80,7 @@ def compute_tf(corpus, bag):
     return tf_dict
 
 
+# idf computing function
 def compute_idf(corpus, bag):
     idf_dict = {}
     number_of_documents = len(corpus)
@@ -87,23 +90,45 @@ def compute_idf(corpus, bag):
     return idf_dict
 
 
+# tf-idf computing function
 def compute_tf_idf(tf_dict, idf_dict):
     tf_idf_dict = {}
     for doc in tf_dict.keys():
+        tf_idf_dict[doc] = {}
         for word in tf_dict[doc]:
             tf_idf_dict[doc][word] = tf_dict[doc][word] * idf_dict[word]
     return tf_idf_dict
 
 
+# compute tf for terms
 term_tf = compute_tf(corpus, term_bag)
 print("Computed tf")
 
+# compute idf for terms
 term_idf = compute_idf(corpus, term_bag)
 print("Computed idf")
+
+# compute tf-idf for terms
 term_tf_idf = compute_tf_idf(term_tf, term_idf)
 print(term_tf_idf)
 
-for doc in term_tf_idf:
-    with open(f'term_{1}.txt', 'w', encoding='UTF-8') as file:
-        for word in term_tf_idf[doc].values():
+# write term results to terms files
+for doc in term_tf_idf.keys():
+    with open(f'term_{doc}.txt', 'w', encoding='UTF-8') as file:
+        for word in term_tf_idf[doc].keys():
             file.write(f'{word} {term_idf[word]} {term_tf_idf[doc][word]}\n')
+
+# compute tf for lemmas
+lemma_tf = compute_tf(lemmatized_corpus, lemma_bag)
+
+# compute ids for lemmas
+lemma_idf = compute_idf(lemmatized_corpus, lemma_bag)
+
+# compute tf-idf for lemmas
+lemma_tf_idf = compute_tf_idf(lemma_tf, lemma_idf)
+
+# write results to lemma files
+for doc in lemma_tf_idf.keys():
+    with open(f'lemma_{doc}.txt', 'w', encoding='UTF-8') as file:
+        for word in lemma_tf_idf[doc].keys():
+            file.write(f'{word} {lemma_idf[word]} {lemma_tf_idf[doc][word]}\n')
