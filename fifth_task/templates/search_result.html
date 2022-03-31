@@ -17,9 +17,9 @@
     </div>
     <div class="row justify-content-md-center">
         <ol>
-            {% for doc,similarity in search_result.items() %}
+            {% for doc in docs %}
             <li>
-                <h6><a href={{ links[doc] }}>Документ</a>. Релевантность: {{similarity}}</h6>
+                <h6><a href={{ links[doc] }}>Документ</a>. Релевантность: {{ search_result[doc] }}</h6>
             </li>
             {% endfor %}
         </ol>
