@@ -19,7 +19,7 @@
         <ol>
             {% for doc,similarity in search_result.items() %}
             <li>
-                <h6><a href={{links[doc]}}>Документ</a>. Релевантность: {{similarity}}</h6>
+                <h6><a href={{ links[doc] }}>Документ</a>. Релевантность: {{similarity}}</h6>
             </li>
             {% endfor %}
         </ol>

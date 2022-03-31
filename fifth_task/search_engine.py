@@ -129,7 +129,7 @@ def get_document_links(links_filepath):
     links = {}
     with open(links_filepath) as file:
         for line in file:
-            links[i] = line.rstrip('\n')
+            links[str(i)] = line.rstrip('\n')
             i += 1
     return links
 
