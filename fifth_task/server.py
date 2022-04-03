@@ -25,7 +25,6 @@ def search():
             return 'Oops, nothing was found.'
         else:
             docs = sorted(search_result, key=search_result.get, reverse=True)
-            # docs = dict(sorted(search_result.items(), key=lambda item: item[1], reverse=True))
             return render_template('search_result.html', search_result=search_result, links=LINKS, docs=docs)
 
 

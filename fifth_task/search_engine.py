@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from pymorphy2 import MorphAnalyzer
+import math
 
 CORPUS_INDEX_FILEPATH = "../first_task/index.txt"
 
@@ -138,12 +139,16 @@ def compute_similarity(tf_idf, words):
     similarity_coefs = {}
     for doc in tf_idf.keys():
         similarity = 0
+        request_len = 0
         for word in words:
             if word in tf_idf[doc].keys():
                 similarity += tf_idf[doc][word]
+                request_len += 1
         if similarity > 0:
-            similarity_coefs[doc] = similarity
+            #print(sum(tf_idf[doc]))
+            similarity_coefs[doc] = similarity / (math.sqrt(request_len) * math.sqrt(sum(value ** 2 for value in tf_idf[doc].values())))
     return similarity_coefs
+
 
 if __name__ == '__main__':
     tf_idf = parse_corpus(CORPUS_INDEX_FILEPATH)
